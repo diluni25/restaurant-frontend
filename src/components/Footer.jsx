@@ -1,7 +1,32 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white text-center p-4 mt-auto">
-      <p>&copy; 2026 Fuchsius Restaurant. All rights reserved.</p>
+    <footer className="site-footer" id="contact">
+      <div className="footer-main page-width">
+        <a className="footer-brand" href="#top">
+          <span className="wordmark">Tastoria</span>
+          <span className="footer-tagline">Fire. Season. Soul.</span>
+        </a>
+        <div className="footer-block">
+          <span className="footer-label">Come by</span>
+          <p>17 Marlowe Street<br />Mayfair, London</p>
+        </div>
+        <div className="footer-block">
+          <span className="footer-label">From our hearth</span>
+          <p>Tue–Sun · 12:00–22:00</p>
+        </div>
+        <div className="footer-block footer-contact">
+          <a href="tel:+440417853555">041 785 3555</a>
+          <a href="mailto:tastoria@gmail.com">tastoria@gmail.com</a>
+        </div>
+      </div>
+      <div className="footer-bottom page-width">
+        <p>© 2026 Ember &amp; Grain. Thoughtfully made, warmly shared.</p>
+        <div>
+          <a href="#contact">Privacy policy</a>
+          <a href="#contact">Terms</a>
+          <a href="#contact">Allergen information</a>
+        </div>
+      </div>
     </footer>
-  );
+  )
 }

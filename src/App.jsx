@@ -1,121 +1,75 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+    <div className="site-shell" id="top">
+      <Navbar />
+      <main>
+        <section className="about-hero" aria-labelledby="about-title">
+          <img
+            className="about-hero-image"
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2200&q=85"
+            alt="A candlelit table set for dinner at Tastoria"
+          />
+          <div className="about-hero-copy">
+            <span className="eyebrow">Our story</span>
+            <h1 id="about-title">Rooted in place. Led by fire.</h1>
+          </div>
+        </section>
+
+        <section className="story-section page-width" id="story">
+          <div className="story-lead">
+            <span className="eyebrow">Since 2017</span>
+            <h2>A neighborhood table built around the belief that the best food begins with respect.</h2>
+          </div>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Tastoria began with a borrowed grill, a handful of local growers, and a simple idea: cook beautiful ingredients without getting in their way. What started as courtyard dinners became a permanent home for warm hospitality and elemental cooking.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+          <p>
+            Today, our kitchen still works directly with small farms, ranchers, and fishers. The menu changes often, but our mission does not: to create honest food, treat people well, and make every table feel like the best one in the room.
+          </p>
+        </section>
 
-      <div className="ticks"></div>
+        <section className="visit-panel page-width" id="visit">
+          <img
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=85"
+            alt="A freshly prepared seasonal dish"
+          />
+          <div className="visit-details">
+            <div>
+              <span className="eyebrow">Find us</span>
+              <h2>The Eastside</h2>
+              <p>17 Marlowe Street<br />Mayfair, London</p>
+            </div>
+            <div className="hours">
+              <span className="eyebrow">Opening hours</span>
+              <dl>
+                <div><dt>Tue–Thu</dt><dd>5–10 pm</dd></div>
+                <div><dt>Fri–Sat</dt><dd>5–11 pm</dd></div>
+                <div><dt>Sunday</dt><dd>4–9 pm</dd></div>
+                <div><dt>Monday</dt><dd>Closed</dd></div>
+              </dl>
+            </div>
+          </div>
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <section className="gallery-section" id="table">
+          <div className="gallery-heading page-width">
+            <span className="eyebrow">Inside Tastoria</span>
+            <h2>A seat at our table</h2>
+          </div>
+          <div className="gallery-grid page-width">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85" alt="The warmly lit Tastoria dining room" />
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=85" alt="Glasses raised around the dinner table" />
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85" alt="A rich chocolate layer cake" />
+            <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=900&q=85" alt="Freshly made pancakes finished with fruit" />
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
   )
 }
 
