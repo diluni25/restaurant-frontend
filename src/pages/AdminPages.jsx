@@ -10,10 +10,10 @@ const messages = [
 ]
 
 const navItems = [
-  { label: 'Dashboard Overview', code: 'OV', to: '/admin', end: true },
-  { label: 'Order Management', code: 'OR', muted: true, count: '12' },
+  { label: 'Dashboard Overview', code: 'OV', to: '/admin/dashboard', end: true },
+  { label: 'Order Management', code: 'OR', to: '/admin', count: '12' },
   { label: 'Home Content CMS', code: 'HM', muted: true },
-  { label: 'About Content CMS', code: 'AB', to: '/', end: true },
+  { label: 'About Content CMS', code: 'AB', to: '/about', end: true },
   { label: 'Contact & Messages', code: 'CM', to: '/admin/messages', count: '8' },
   { label: 'Media & Asset Library', code: 'ME', muted: true },
 ]
@@ -80,6 +80,238 @@ const orders = [
   ['#ORD-1004', 'Sarah Kapoor', 'Jul 19 · 07:12 PM', '$42.00', 'Completed'],
   ['#ORD-1005', 'Michael Brown', 'Jul 20 · 04:30 PM', '$29.50', 'Cancelled'],
 ]
+
+const managementOrders = [
+  {
+    ticket: '#ORD-1001',
+    time: '19:42 · TBL 04',
+    guest: 'Lady Genevieve V.',
+    vip: true,
+    title: '2x Albatross Pasta, 1x AS Wagu Tenderloin',
+    status: 'Waiting',
+    note: 'Need to confirm allergen prep',
+    customer: 'Lady Genevieve V.',
+    phone: '+1 (415) 690-4412',
+    table: 'Table 04 · Terrace Veranda (Floor 2)',
+    steps: [
+      'Order received & verified',
+      'Kitchen prep in progress',
+      'Ready at pass',
+      'Dispatched / served',
+    ],
+    items: [
+      { name: 'Alba Truffle Tagliolini', price: '$136.00', qty: '2x' },
+      { name: 'AS Wagyu Tenderloin', price: '$112.00', qty: '1x' },
+    ],
+  },
+  {
+    ticket: '#ORD-1002',
+    time: '19:35 · Courier',
+    guest: 'Julian Thorne',
+    vip: false,
+    title: '1x Smoked Duck Confit, 1x Citrus Saba',
+    status: 'Ready',
+    note: 'Courier handoff at front door',
+    customer: 'Julian Thorne',
+    phone: '+1 (415) 220-9191',
+    table: 'Courier Pickup',
+    steps: [
+      'Order received & verified',
+      'Kitchen prep in progress',
+      'Ready at pass',
+      'Dispatched / served',
+    ],
+    items: [
+      { name: 'Smoked Duck Confit', price: '$88.00', qty: '1x' },
+      { name: 'Citrus Saba', price: '$22.00', qty: '1x' },
+    ],
+  },
+  {
+    ticket: '#ORD-1003',
+    time: '19:22 · Dish 04',
+    guest: 'Marcus & Elena Vance',
+    vip: false,
+    title: '3x Charred Octopus, 2x Valrhona Chocolate Tart',
+    status: 'In prep',
+    note: 'Dessert station is queued',
+    customer: 'Marcus & Elena Vance',
+    phone: '+1 (415) 806-5490',
+    table: 'Dish 04 · Bar',
+    steps: [
+      'Order received & verified',
+      'Kitchen prep in progress',
+      'Ready at pass',
+      'Dispatched / served',
+    ],
+    items: [
+      { name: 'Charred Octopus', price: '$48.00', qty: '3x' },
+      { name: 'Valrhona Chocolate Tart', price: '$38.00', qty: '2x' },
+    ],
+  },
+  {
+    ticket: '#ORD-0998',
+    time: '19:04 · Completed',
+    guest: 'AK',
+    vip: false,
+    title: '1x Wild Herb Tart, 1x House Lemon Tonic',
+    status: 'Completed',
+    note: 'Finished and closed out in POS',
+    customer: 'AK',
+    phone: '+1 (415) 440-1055',
+    table: 'Completed',
+    steps: [
+      'Order received & verified',
+      'Kitchen prep in progress',
+      'Ready at pass',
+      'Dispatched / served',
+    ],
+    items: [
+      { name: 'Wild Herb Tart', price: '$44.00', qty: '1x' },
+      { name: 'House Lemon Tonic', price: '$18.00', qty: '1x' },
+    ],
+  },
+]
+
+export function OrderManagementPage() {
+  return (
+    <AdminFrame active="/admin">
+      <div className="order-management-page">
+        <div className="management-header-row">
+          <div>
+            <span className="section-kicker">Kitchen expedite / Real-time orders</span>
+            <h1 className="page-title">Order Management</h1>
+          </div>
+          <div className="management-actions">
+            <label className="mini-search" aria-label="Search ticket">
+              <span>⌕</span>
+              <input placeholder="Search ticket #, guest, dish..." />
+            </label>
+            <button type="button" className="ghost-button"><span>☰</span> Filter</button>
+            <button type="button" className="live-button"><span className="live-dot" /> Live Sync</button>
+          </div>
+        </div>
+
+        <div className="status-tabs" aria-label="Order filters">
+          <button type="button" className="active-tab">All Orders <span>(128)</span></button>
+          <button type="button">Pending <span>12</span></button>
+          <button type="button">Preparing <span>8</span></button>
+          <button type="button">Ready for Delivery <span>5</span></button>
+          <button type="button">Completed</button>
+        </div>
+
+        <div className="summary-cards">
+          <article className="summary-card accent">
+            <div className="summary-topline"><span>Active Orders</span><span className="chip-icon">◫</span></div>
+            <div className="summary-value">25</div>
+            <div className="summary-progress"><span /></div>
+          </article>
+          <article className="summary-card">
+            <div className="summary-topline"><span>Kitchen Wait Time</span><span className="chip-icon">◔</span></div>
+            <div className="summary-value">18</div>
+            <div className="summary-meta"><span>min avg</span><span className="muted-tag neutral">Normal</span></div>
+          </article>
+          <article className="summary-card">
+            <div className="summary-topline"><span>Today’s Volume</span><span className="chip-icon">◬</span></div>
+            <div className="summary-value">$3,840</div>
+            <div className="summary-meta"><span>+18.2% vs</span><span className="muted-tag positive">yday</span></div>
+          </article>
+          <article className="summary-card">
+            <div className="summary-topline"><span>Dispatches</span><span className="chip-icon">✦</span></div>
+            <div className="summary-value">9</div>
+            <div className="summary-meta"><span>on route</span><span className="muted-tag active">Live Fleet</span></div>
+          </article>
+        </div>
+
+        <div className="order-management-grid">
+          <section className="order-list-panel">
+            <div className="panel-header">
+              <div>
+                <h2>Active Pass Stream</h2>
+              </div>
+              <span className="panel-meta">Kitchen Display System</span>
+            </div>
+
+            <div className="order-list-table order-table-head">
+              <span>Ticket</span>
+              <span>Guest</span>
+              <span>Course / items</span>
+            </div>
+
+            {managementOrders.map((order, index) => (
+              <div key={order.ticket} className={`order-list-row ${index === 0 ? 'is-selected' : ''}`}>
+                <div className="ticket-cell">
+                  <strong>{order.ticket}</strong>
+                  <small>{order.time}</small>
+                </div>
+                <div className="guest-cell">
+                  <span className="guest-avatar">{order.guest.split(' ').slice(-1)[0][0]}</span>
+                  <div>
+                    <strong>{order.guest}</strong>
+                    {order.vip && <span className="vip-badge">VIP Patron</span>}
+                  </div>
+                </div>
+                <div className="item-cell">
+                  <strong>{order.title}</strong>
+                </div>
+              </div>
+            ))}
+
+            <div className="pagination-row">
+              <span>Showing 4 of 25 active service orders</span>
+              <div className="pager">
+                <button type="button" className="pager-btn">Prev</button>
+                <button type="button" className="pager-btn active">1</button>
+                <button type="button" className="pager-btn">2</button>
+                <button type="button" className="pager-btn">3</button>
+                <button type="button" className="pager-btn">Next</button>
+              </div>
+            </div>
+          </section>
+
+          <aside className="detail-panel">
+            <div className="detail-header">
+              <div className="detail-title-wrap">
+                <span className="detail-id">#ORD-1001</span>
+                <span className="detail-status">Priority</span>
+              </div>
+              <button type="button" className="more-button">•••</button>
+            </div>
+
+            <div className="detail-guest-block">
+              <div>
+                <strong>Lady Genevieve V.</strong>
+                <span className="detail-phone">+1 (415) 690-4412</span>
+                <span className="detail-table">Table 04 · Terrace Veranda (Floor 2)</span>
+              </div>
+            </div>
+
+            <div className="timeline-list">
+              <div className="timeline-item done"><span className="dot" /><div><strong>Order received &amp; verified</strong><small>19:42 · Automated POS ticket</small></div></div>
+              <div className="timeline-item active"><span className="dot" /><div><strong>Kitchen prep in progress</strong><small>Station 2 · Chef Mateo</small></div></div>
+              <div className="timeline-item"><span className="dot" /><div><strong>Ready at pass</strong><small>Pending plating &amp; quality check</small></div></div>
+              <div className="timeline-item"><span className="dot" /><div><strong>Dispatched / served</strong><small>Server: Sarah Jenkins</small></div></div>
+            </div>
+
+            <div className="detail-items">
+              <h3>Ticket Items (3)</h3>
+              <ul>
+                <li><span>2x</span><strong>Alba Truffle Tagliolini</strong><em>$136.00</em></li>
+                <li><span>1x</span><strong>AS Wagyu Tenderloin</strong><em>$112.00</em></li>
+              </ul>
+            </div>
+
+            <button type="button" className="primary-action">Update Status: Mark Ready</button>
+
+            <div className="action-row">
+              <button type="button" className="secondary-action">Notify Driver</button>
+              <button type="button" className="secondary-action">Expedite Slip</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </AdminFrame>
+  )
+}
 
 export function DashboardPage() {
   return (

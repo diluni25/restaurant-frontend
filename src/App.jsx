@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import { DashboardPage, MessagesPage } from './pages/AdminPages'
+import { DashboardPage, MessagesPage, OrderManagementPage } from './pages/AdminPages'
 import ContactPage from './pages/ContactPage'
 import './App.css'
 import './Admin.css'
@@ -82,9 +82,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AboutPage />} />
+        <Route path="/" element={<OrderManagementPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/admin" element={<DashboardPage />} />
+        <Route path="/admin" element={<OrderManagementPage />} />
+        <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/messages" element={<MessagesPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
