@@ -12,7 +12,9 @@ import SiteFooter from "./components/SiteFooter";
 import AdminLayout from "./components/admin/AdminLayout";
 import MenuManagement from "./pages/MenuManagement";
 import ChefManagement from "./pages/ChefManagement";
+import ImageManagement from "./pages/ImageManagement";
 
+import "./imageManagement.css";
 import "./admin.css";
 import "./App.css";
 import "./order.css";
@@ -28,6 +30,7 @@ export default function App() {
             <Route index element={<MenuManagement />} />
             <Route path="menu" element={<MenuManagement />} />
             <Route path="chefs" element={<ChefManagement />} />
+            <Route path="images" element={<ImageManagement />} />
           </Route>
 
           <Route
