@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -78,16 +79,81 @@ function AboutPage() {
   )
 }
 
+function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false)
+
+  return (
+    <div className="login-page">
+      <div className="login-visual" aria-label="Restaurant dining room">
+        <img
+          src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1600&q=80"
+          alt="Warmly lit restaurant dining room"
+        />
+      </div>
+
+      <main className="login-panel">
+        <header className="login-brand" aria-label="Tastoria home">
+          <span className="brand-mark">⟡</span>
+          <span className="brand-word">Tastoria</span>
+        </header>
+        <p className="brand-subtitle">RESTAURANT ADMINISTRATION</p>
+
+        <section className="login-card" aria-label="Admin login form">
+          <h1>Admin login</h1>
+          <p>Sign in to manage menus, orders, and promotions.</p>
+
+          <form className="login-form" onSubmit={(event) => event.preventDefault()}>
+            <label className="field">
+              <span>Email address</span>
+              <input type="email" defaultValue="admin@gmail.com" aria-label="Email address" />
+            </label>
+
+            <label className="field password-field">
+              <span>Password</span>
+              <div className="input-shell">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  aria-label="Password"
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={() => setShowPassword((current) => !current)}
+                >
+                  {showPassword ? 'HIDE' : 'SHOW'}
+                </button>
+              </div>
+            </label>
+
+            <button type="button" className="text-link">Forgot password?</button>
+
+            <label className="remember-me">
+              <input type="checkbox" />
+              <span>Remember me on this device</span>
+            </label>
+
+            <button type="submit" className="secure-login">SECURE LOGIN</button>
+          </form>
+
+          <p className="help-link">Need Help?</p>
+        </section>
+      </main>
+    </div>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<OrderManagementPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/admin" element={<OrderManagementPage />} />
         <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/messages" element={<MessagesPage />} />
+        <Route path="/admin/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
