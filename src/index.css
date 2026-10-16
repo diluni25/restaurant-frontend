@@ -1,11 +1,31 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+=======
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #eee9e3;
+  background: #201d1b;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --orange: #f36b21;
+  --paper: #eee9e3;
+  --muted: #b2aaa2;
+  --panel: #302b29;
+  --line: #413a36;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+}
+>>>>>>> 21d4506fc5beeef53a9d8bb18418d89a8deb22fb
 
 * {
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 body {
   margin: 0;
   padding: 0;
@@ -18,3 +38,32 @@ body {
   width: 100%;
   min-height: 100vh;
 }
+=======
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #201d1b;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
+img {
+  display: block;
+}
+>>>>>>> 21d4506fc5beeef53a9d8bb18418d89a8deb22fb
