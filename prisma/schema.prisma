@@ -1,0 +1,17 @@
+// Yuwantha's foundational Prisma setup. Domain models are intentionally not
+// created here: Auth/Menu/Orders/CMS owners should agree on the ER diagram first.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Non-business table to verify migrations + connection.
+model SetupCheck {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  @@map("setup_checks")
+}
