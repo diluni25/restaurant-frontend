@@ -1,0 +1,13 @@
+import {Router} from 'express';
+import {requireAdmin} from '../middleware/admin.middleware.js';
+import {asyncRoute,validId} from '../utils/http.js';
+import * as menu from '../services/menu.service.js';
+const r=Router();
+r.get('/',asyncRoute(async(req,res)=>res.json({success:true,data:await menu.listMenu(req.query)})));
+r.get('/categories',asyncRoute(async(_req,res)=>res.json({success:true,data:await menu.categories()})));
+r.get('/admin',requireAdmin,asyncRoute(async(req,res)=>res.json({success:true,data:await menu.listMenu(req.query,true)})));
+r.get('/:id',asyncRoute(async(req,res)=>res.json({success:true,data:await menu.getMenu(validId(req.params.id))})));
+r.post('/',requireAdmin,asyncRoute(async(req,res)=>res.status(201).json({success:true,data:await menu.createMenu(req.body)})));
+r.patch('/:id',requireAdmin,asyncRoute(async(req,res)=>res.json({success:true,data:await menu.updateMenu(validId(req.params.id),req.body)})));
+r.delete('/:id',requireAdmin,asyncRoute(async(req,res)=>{await menu.deleteMenu(validId(req.params.id));res.status(204).end();}));
+export default r;

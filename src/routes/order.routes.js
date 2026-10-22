@@ -1,0 +1,10 @@
+import {Router} from 'express';
+import {requireAdmin} from '../middleware/admin.middleware.js';
+import {asyncRoute,validId} from '../utils/http.js';
+import * as orders from '../services/order.service.js';
+const r=Router();
+r.post('/',asyncRoute(async(req,res)=>res.status(201).json({success:true,data:await orders.createOrder(req.body)})));
+r.get('/',requireAdmin,asyncRoute(async(_req,res)=>res.json({success:true,data:await orders.listOrders()})));
+r.get('/:id',requireAdmin,asyncRoute(async(req,res)=>res.json({success:true,data:await orders.getOrder(validId(req.params.id))})));
+r.patch('/:id/status',requireAdmin,asyncRoute(async(req,res)=>res.json({success:true,data:await orders.changeStatus(validId(req.params.id),req.body?.status)})));
+export default r;
