@@ -9,6 +9,8 @@ import imageRoutes from './routes/image.routes.js';
 import cartRoutes from './routes/cart.routes.js';
 import orderRoutes from './routes/order.routes.js';
 import { resolve } from 'node:path';
+import chefRoutes from './routes/chefs.routes.js';
+import menuCategoryRoutes from './routes/menu-categories.routes.js';
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 
 export const app = express();
@@ -18,23 +20,15 @@ app.use(cors({ origin: env.frontendUrl }));
 app.use(express.json({ limit: '1mb' }));
 
 app.use('/api/health', healthRoutes);
-
-// 2. Mount admin routes here
+app.use('/api/menu/categories', menuCategoryRoutes);
+app.use('/api/chefs', chefRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/menu',menuRoutes);
-app.use('/api/menu-images',imageRoutes);
-app.use('/api/cart',cartRoutes);
-app.use('/api/orders',orderRoutes);
-app.use('/uploads/menu', express.static(resolve('uploads/menu'),{index:false,dotfiles:'deny'}));
-
-// Team modules get mounted here later, for example:
-// app.use('/api/auth', authRoutes);
-// app.use('/api/menu', menuRoutes);
-// app.use('/api/orders', orderRoutes);
-// app.use('/api/chefs', chefRoutes);
-// app.use('/api/content', contentRoutes);
-// app.use('/api/images', imageRoutes);
-// app.use('/api/contact', contactRoutes);
+app.use('/api/menu', menuRoutes);
+app.use('/api/menu-images', imageRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/uploads/menu', express.static(resolve('uploads/menu'), { index: false, dotfiles: 'deny' }));
+app.use('/uploads/chefs', express.static(resolve('uploads/chefs'), { index: false, dotfiles: 'deny' }));
 
 app.use(notFound);
 app.use(errorHandler);

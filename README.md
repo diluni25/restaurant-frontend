@@ -16,6 +16,7 @@ See [AIVEN_SETUP_SINHALA.md](./AIVEN_SETUP_SINHALA.md) for step-by-step Aiven cl
 
 ## Database models
 - Admin users with role and active-state fields; create users through a future authenticated admin workflow rather than seeding a shared password.
+- Chefs with profile details, image URL, active state, and display order.
 - Menu categories and menu items, including availability, display order, and decimal prices.
 - Orders and order items, with order-item name and price snapshots so menu edits do not rewrite order history.
 - Reservations with requested date/time, party size, and workflow status.
@@ -26,5 +27,8 @@ The initial MySQL migration is in `prisma/migrations/`. For a disposable local d
 ## Routes
 - `GET /api/health` – express health
 - `GET /api/health/db` – checks live database query
+- `/api/chefs` – admin-authenticated list, create, read, update, and delete chef profiles.
+- `/api/chefs/:id/image` – admin-authenticated image read, upload (`POST` multipart field `image`), URL/path assignment (`PUT` with `{ "imageUrl": "https://..." }`), and detach (`DELETE`). Uploads are served from `/uploads/chefs`.
+- `/api/menu/categories` – public list/read and admin-authenticated create, update, and delete. Category slugs are generated from the name when omitted; categories referenced by menu items cannot be deleted.
 
-`src/app.js` contains commented extension points for the team modules. UI and frontend project are not modified.
+The frontend project is not modified by these backend APIs.
