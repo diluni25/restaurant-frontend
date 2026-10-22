@@ -3,8 +3,10 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { env } from './config/env.js';
 import healthRoutes from './routes/health.routes.js';
-import adminRoutes from './routes/admin.routes.js'; // <-- 1. Import admin routes
+import adminRoutes from './routes/admin.routes.js'; 
 import { notFound, errorHandler } from './middleware/error.middleware.js';
+import homeRoutes from './routes/home.routes.js';
+import aboutRoutes from './routes/about.routes.js';
 
 export const app = express();
 app.disable('x-powered-by');
@@ -16,6 +18,9 @@ app.use('/api/health', healthRoutes);
 
 // 2. Mount admin routes here
 app.use('/api/admin', adminRoutes);
+
+app.use('/api/home', homeRoutes);
+app.use('/api/about', aboutRoutes);
 
 // Team modules get mounted here later, for example:
 // app.use('/api/auth', authRoutes);
