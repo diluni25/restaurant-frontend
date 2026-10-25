@@ -61,14 +61,55 @@ router.post('/login', async (req, res) => {
 // 2. PROTECTED ROUTE EXAMPLE (Authorization)
 // ==========================================
 // Only authenticated admins with a valid token can access this route
-router.get('/dashboard', verifyToken, async (req, res) => {
+router.get('/dashboard', verifyToken, async (req, res, next) => {
   try {
+    const [
+      menuItems,
+      availableMenuItems,
+      categories,
+      chefs,
+      activeChefs,
+      orders,
+      pendingOrders,
+      reservations,
+      inquiries,
+      revenue,
+      recentOrders
+    ] = await Promise.all([
+      prisma.menuItem.count(),
+      prisma.menuItem.count({ where: { isAvailable: true } }),
+      prisma.menuCategory.count(),
+      prisma.chef.count(),
+      prisma.chef.count({ where: { isActive: true } }),
+      prisma.order.count(),
+      prisma.order.count({ where: { status: { in: ['PENDING', 'CONFIRMED', 'PREPARING', 'READY'] } } }),
+      prisma.reservation.count(),
+      prisma.inquiry.count({ where: { status: { in: ['NEW', 'IN_PROGRESS'] } } }),
+      prisma.order.aggregate({ _sum: { total: true }, where: { status: { not: 'CANCELLED' } } }),
+      prisma.order.findMany({ take: 5, orderBy: { createdAt: 'desc' }, include: { items: true } })
+    ]);
+
     return res.status(200).json({
-      message: "Welcome to the protected admin dashboard!",
-      admin: req.admin // Contains the decoded token payload
+      success: true,
+      data: {
+        admin: req.admin,
+        statistics: {
+          menuItems,
+          availableMenuItems,
+          categories,
+          chefs,
+          activeChefs,
+          orders,
+          pendingOrders,
+          reservations,
+          inquiries,
+          revenue: Number(revenue._sum.total ?? 0).toFixed(2)
+        },
+        recentOrders
+      }
     });
   } catch (error) {
-    return res.status(500).json({ message: "Error loading dashboard", error: error.message });
+    next(error);
   }
 });
 
