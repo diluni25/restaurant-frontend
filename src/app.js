@@ -7,6 +7,8 @@ import adminRoutes from './routes/admin.routes.js';
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import homeRoutes from './routes/home.routes.js';
 import aboutRoutes from './routes/about.routes.js';
+import orderRoutes from './routes/order.routes.js';
+import contactRoutes from './routes/contact.routes.js';
 
 export const app = express();
 app.disable('x-powered-by');
@@ -22,12 +24,14 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/home', homeRoutes);
 app.use('/api/about', aboutRoutes);
 
+// Mount Order & Contact routes
+app.use('/api/orders', orderRoutes);
+app.use('/api/contact', contactRoutes);
+
 // Team modules get mounted here later, for example:
 // app.use('/api/auth', authRoutes);
 // app.use('/api/menu', menuRoutes);
-// app.use('/api/orders', orderRoutes);
 // app.use('/api/chefs', chefRoutes);
-// app.use('/api/content', contentRoutes);
 // app.use('/api/images', imageRoutes);
 // app.use('/api/contact', contactRoutes);
 
